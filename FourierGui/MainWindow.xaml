@@ -1,0 +1,41 @@
+﻿<Window x:Class="FourierGui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:FourierGui"
+        Title="MainWindow" Height="350" Width="800"
+        >
+    <DockPanel LastChildFill="True">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Open" Command="{Binding OpenAudioFileCommand}" />
+            </MenuItem>
+        </Menu>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5,0">
+            <TextBlock Text="Window size: " />
+            <TextBlock Text="{Binding WindowSize}" />
+            <TextBlock Text=" samples." />
+        </StackPanel>
+        <Slider Margin="5" DockPanel.Dock="Bottom" Maximum="{Binding MaximumSampleIndex}" Value="{Binding FirstSampleIndex}" IsEnabled="{Binding CanComputeFourier}"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Samples" />
+            <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Fourier" Grid.Column="1" />
+
+            <!--<Border BorderThickness="1" BorderBrush="Black" Margin="5" Grid.Row="1">-->
+            <local:GraphControl x:Name="sampleGraph" GraphType="{x:Static local:GraphType.Sample}" Margin="5" Grid.Row="1" />
+            <!--</Border>-->
+            
+            <!--<Border BorderThickness="1" BorderBrush="Black" Margin="5" Grid.Row="1" Grid.Column="1">-->
+            <local:GraphControl x:Name="fourierGraph" GraphType="{x:Static local:GraphType.Fourier}" Margin="5" Grid.Row="1" Grid.Column="1" />
+            <!--</Border>-->
+        </Grid>
+    </DockPanel>
+</Window>    
+    

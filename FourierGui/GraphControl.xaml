@@ -1,0 +1,42 @@
+﻿<UserControl x:Name="userControl" x:Class="FourierGui.GraphControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="502" RenderOptions.BitmapScalingMode="HighQuality">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Label Content="{Binding Maximum}" VerticalAlignment="Top" HorizontalAlignment="Right" />
+        <Label Content="{Binding Center}" VerticalAlignment="Center" HorizontalAlignment="Right" />
+        <Label Content="{Binding Minimum}" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
+        <Line Visibility="{Binding IsCenterLineVisible, Converter={StaticResource BooleanToVisibilityConverter}}" 
+              VerticalAlignment="Center" 
+              X2="{Binding ActualWidth, ElementName=userControl, Mode=OneWay}" 
+              Stroke="Gray" 
+              Grid.ColumnSpan="2" />
+
+        <Border BorderThickness="1,0,0,1" BorderBrush="Gray" Grid.Column="1" >
+            <Image Name="graphImg" Stretch="Fill"  />
+        </Border>
+        <Label Content="{Binding LowFrequency}" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" />
+        <Label Content="{Binding HighFrequency}" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" />
+        <Line Grid.Column="1" 
+              Grid.RowSpan="2"
+              HorizontalAlignment="Center" 
+              Stroke="Gray" 
+              Y2="{Binding ActualHeight, ElementName=userControl, Mode=OneWay}"
+              Visibility="{Binding IsVerticalLineVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+    </Grid>
+</UserControl>
